@@ -8,11 +8,12 @@ require "email_birthday_notifier"
 require "calendar"
 
 RSpec.describe SendGreetingsUseCase do
+  let(:user_file_data_source) { instance_double("UserFileDataSource") }
+  let(:email_birthday_notifier) { instance_double("EmailBirthdayNotifier") }
+  let(:calendar) { instance_double("Calendar") }
+  
   context "when the data source has one person whose birthday is today" do
     it "sends a birthday greeting message" do
-      user_file_data_source = instance_double("UserFileDataSource")
-      email_birthday_notifier = instance_double("EmailBirthdayNotifier")
-      calendar = instance_double("Calendar")
       person = Person.new("John", "Doe", Date.new(1982, 10, 8), "john.doe@foobar.com")
       
       allow(calendar).to receive(:get_today_date).and_return(Date.new(2024, 10, 8))
@@ -29,10 +30,6 @@ RSpec.describe SendGreetingsUseCase do
   
   context "when the data source has one user and today is NOT its birthday" do
     it "doesn't send any birthday greeting message" do
-      user_file_data_source = instance_double("UserFileDataSource")
-      email_birthday_notifier = instance_double("EmailBirthdayNotifier")
-      calendar = instance_double("Calendar")
-
       allow(calendar).to receive(:get_today_date).and_return(Date.new(2024, 10, 8))
       allow(user_file_data_source).to receive(:find_users_born_on).with(10, 8).and_return([])
       allow(email_birthday_notifier).to receive(:send_greeting_message_to)
