@@ -3,6 +3,9 @@
 require "send_greetings_use_case"
 require "person"
 require "date"
+require "user_file_data_source"
+require "email_birthday_notifier"
+require "calendar"
 
 RSpec.describe SendGreetingsUseCase do
   context "when the input has one person whose birthday is today" do
@@ -12,8 +15,8 @@ RSpec.describe SendGreetingsUseCase do
       calendar = instance_double("Calendar")
       person = Person.new("John", "Doe", Date.new(1982, 10, 8), "john.doe@foobar.com")
       
-      allow(user_file_data_source).to receive(:get_users).and_return([person])
       allow(calendar).to receive(:get_today_date).and_return(Date.new(2024, 10, 8))
+      allow(user_file_data_source).to receive(:find_users_born_on).with(10, 8).and_return([person])
       allow(email_birthday_notifier).to receive(:send_greeting_message_to)
       
       send_greetings_use_case = SendGreetingsUseCase.new(user_file_data_source, email_birthday_notifier, calendar)

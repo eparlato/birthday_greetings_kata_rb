@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserFileDataSource
-  def get_users
+  def find_users_born_on(month, day)
     
   end
 end

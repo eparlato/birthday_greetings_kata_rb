@@ -8,19 +8,11 @@ class SendGreetingsUseCase
   end
   
   def send_greetings
-    users = @data_source.get_users
     today = @calendar.get_today_date
-    
-    users.each do |person|
-      if birthday?(person, today)
-        @birthday_notifier.send_greeting_message_to(person)
-      end
+    users_whose_birthday_is_today = @data_source.find_users_born_on(today.month, today.day)
+
+    users_whose_birthday_is_today.each do |person|
+      @birthday_notifier.send_greeting_message_to(person)
     end
-  end
-  
-  private
-  
-  def birthday?(person, date)
-    person.birthday_date.month == date.month && person.birthday_date.day == date.day
   end
 end
