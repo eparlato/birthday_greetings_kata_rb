@@ -1,7 +1,23 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    date (3.3.4)
     diff-lcs (1.5.1)
+    mail (2.8.1)
+      mini_mime (>= 0.1.1)
+      net-imap
+      net-pop
+      net-smtp
+    mini_mime (1.1.5)
+    net-imap (0.4.10)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.2)
+      timeout
+    net-smtp (0.5.0)
+      net-protocol
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -15,11 +31,13 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
+    timeout (0.4.1)
 
 PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
+  mail (~> 2.7, >= 2.7.1)
   rspec (~> 3.13)
 
 BUNDLED WITH
