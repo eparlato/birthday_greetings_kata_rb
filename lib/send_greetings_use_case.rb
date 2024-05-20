@@ -9,9 +9,9 @@ class SendGreetingsUseCase
   
   def send_greetings
     today = @calendar.get_today_date
-    users_whose_birthday_is_today = @data_source.find_users_born_on(today.month, today.day)
+    persons_whose_birthday_is_today = @data_source.find_persons_born_on(today.month, today.day)
 
-    users_whose_birthday_is_today.each do |person|
+    persons_whose_birthday_is_today.each do |person|
       @birthday_notifier.send_greeting_message_to(person)
     end
   end

@@ -5,16 +5,16 @@ require "person"
 
 RSpec.describe "UserFileDataSource" do
   
-  describe "#find_users_born_on" do
+  describe "#find_persons_born_on" do
     context "when the file is empty" do
       let(:user_file_data_source) { UserFileDataSource.new("spec/test_files/empty_file.csv") }
       
       it "returns an empty array" do
-        expect(user_file_data_source.find_users_born_on(10, 8)).to eq([])
+        expect(user_file_data_source.find_persons_born_on(10, 8)).to eq([])
       end
     end
     
-    context "when the file has users" do
+    context "when the file has persons data" do
       let(:user_file_data_source) { UserFileDataSource.new("spec/test_files/test_input_file.csv")}
       
       context "and some user is born on the same month and day" do
@@ -24,14 +24,14 @@ RSpec.describe "UserFileDataSource" do
             Person.new("Ian", "Solo", Date.new(1977, 10, 8), "ian.solo@foobar.com")
           ]
           
-          expect(user_file_data_source.find_users_born_on(10, 8)).to eq(expected_person_array)
+          expect(user_file_data_source.find_persons_born_on(10, 8)).to eq(expected_person_array)
         end
       end
     
       context "and no user is born on the same month and day" do
         
         it "returns an empty array" do
-          expect(user_file_data_source.find_users_born_on(10, 9)).to eq([])
+          expect(user_file_data_source.find_persons_born_on(10, 9)).to eq([])
         end
       end
     
